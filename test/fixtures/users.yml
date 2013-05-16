@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nickname: MyString
+  avatar: MyString
+  email: MyString
+  role: MyString
+  blocked: false
+  reward: 1
+
+two:
+  nickname: MyString
+  avatar: MyString
+  email: MyString
+  role: MyString
+  blocked: false
+  reward: 1
