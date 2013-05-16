@@ -11,6 +11,6 @@ module ApplicationHelper
   def thumb_avatar(user)
     image_tag user.avatar.url(:thumb), :class => :thumb_avatar, :alt => "#{user.nickname} thumb avatar"
   end
-  
+
 
 end
