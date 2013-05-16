@@ -16,12 +16,12 @@ ActiveRecord::Schema.define(:version => 20130516062136) do
   create_table "users", :force => true do |t|
     t.string   "nickname"
     t.string   "avatar"
-    t.string   "email"
     t.string   "role"
     t.boolean  "blocked"
     t.integer  "reward"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
