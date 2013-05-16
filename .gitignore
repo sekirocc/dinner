@@ -38,5 +38,6 @@
 *.DS_Store
 /.idea/*
 ._*
+/public/uploads
 
 
