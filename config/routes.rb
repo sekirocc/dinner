@@ -1,7 +1,9 @@
 WeAsk::Application.routes.draw do
   devise_for :users
 
+  put 'users/update_avatar' => 'users#update_avatar', :as => :update_avatar
   resources :users
+
 
 
   # The priority is based upon order of creation:
