@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  has_many :orders
+
   def admin?
     nickname == '陈界'
   end

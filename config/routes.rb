@@ -1,4 +1,13 @@
 WeAsk::Application.routes.draw do
+  resources :order_dishes
+
+
+  resources :orders
+
+
+  resources :dishes
+
+
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   devise_for :users
