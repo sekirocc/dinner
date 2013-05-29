@@ -1,4 +1,6 @@
 WeAsk::Application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
   devise_for :users
 
   put 'users/update_avatar' => 'users#update_avatar', :as => :update_avatar

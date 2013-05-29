@@ -1,3 +1,4 @@
+# encoding: utf-8
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -10,5 +11,9 @@ class User < ActiveRecord::Base
   attr_accessible :avatar, :blocked, :email, :nickname, :reward, :role
 
   mount_uploader :avatar, AvatarUploader
+
+  def admin?
+    nickname == '陈界'
+  end
   
 end
