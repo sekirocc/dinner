@@ -103,6 +103,8 @@ SimpleForm.setup do |config|
   # You can define which elements should obtain additional classes
   # config.generate_additional_classes_for = [:wrapper, :label, :input]
 
+  config.label_text = lambda { |label, required| "#{label} #{required.blank? ? '' : '<span class=\'required-field\'>*</span>' } " }
+
   # Whether attributes are required by default (or not). Default is true.
   # config.required_by_default = true
 

@@ -1,5 +1,16 @@
-= simple_form_for @order, :html => { :class => 'form-horizontal' } do |f|
-  = f.input :user_id
+= simple_form_for @order, :html => { :class => 'form-horizontal order-form' } do |f|
+  %table.table.table-striped
+    %thead
+      %tr
+        %th 菜名
+        %th 价格(元)
+        %th 份数
+    %tbody
+      - Dish.active.all.sort_by { |e| -e.price }.each do |dish|
+        %tr
+          %td= dish.name
+          %td= dish.price
+          %td= number_field_tag "dishes[#{dish.id}]", ( @order.order_dishes.find_by_dish_id(dish.id) || { :number => 0 } )[:number]
+
   .form-actions
-    = f.button :submit, :class => 'btn-primary'
-    = link_to t('.cancel', :default => t("helpers.links.cancel")), orders_path, :class => 'btn'
+    = f.button :submit, '提交订单', :class => 'btn-primary btn-large pull-left'

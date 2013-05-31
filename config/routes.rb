@@ -5,7 +5,11 @@ WeAsk::Application.routes.draw do
   resources :orders
 
 
-  resources :dishes
+  resources :dishes do
+    member do
+      get 'disable_dish', :as => :disable
+    end
+  end
 
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
@@ -74,6 +78,6 @@ WeAsk::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 
-  root :to => "users#index"
+  root :to => "orders#index"
   
 end

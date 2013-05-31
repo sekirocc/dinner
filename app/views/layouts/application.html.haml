@@ -25,37 +25,32 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand(href="#") WeAsk
+          = link_to "我要点餐", new_order_path, :class=> "brand"
           .container.nav-collapse
             %ul.nav
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
+              %li= link_to "所有订单", "/orders"
+              - if user_signed_in? && current_user.can_manage_dishes?
+                %li= link_to "菜单管理", "/dishes"
             %ul.nav.pull-right
               - if user_signed_in?
-                %li= link_to "Setting", edit_user_path(current_user)
-                %li= link_to "logout", destroy_user_session_path, :method => :delete
+                %li= link_to "登陆为 #{current_user.nickname}", "#"
+                %li= link_to "设置", edit_user_path(current_user)
+                %li= link_to "退出", destroy_user_session_path, :method => :delete
               - else
-                %li= link_to "login", new_user_session_path
-                %li= link_to "sign_up", new_user_registration_path
+                %li= link_to "登陆", new_user_session_path
+                %li= link_to "注册", new_user_registration_path
 
     .container
 
       .row
-        .span9
+        .span1
+        .span8
           = bootstrap_flash
           = yield
         .span3
-          .well.sidebar-nav
-            %h3 Sidebar
-            %ul.nav.nav-list
-              %li.nav-header Sidebar
-              %li= link_to "Link 1", "/path1"
-              %li= link_to "Link 2", "/path2"
-              %li= link_to "Link 3", "/path3"
     
-      %footer
-        %p &copy; Company 2013
+      %footer(style="height: 100px;")
+
     /
       Javascripts
       \==================================================

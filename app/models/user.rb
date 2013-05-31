@@ -10,11 +10,18 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :avatar, :blocked, :email, :nickname, :reward, :role
 
+  validates_presence_of :nickname
+  validates_uniqueness_of :nickname, :email
+
   mount_uploader :avatar, AvatarUploader
 
   has_many :orders
 
   def admin?
+    nickname == '陈界'
+  end
+
+  def can_manage_dishes?
     nickname == '陈界'
   end
   

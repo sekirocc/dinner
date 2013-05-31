@@ -8,6 +8,14 @@ class Ability
     can :edit, User do |target_user|
       user == target_user
     end
+
+    can :edit, Order do |order|
+      user == order.user  
+    end
+    can :destroy, Order do |order|
+      user == order.user  
+    end
+
     #
     # The first argument to `can` is the action you are giving the user 
     # permission to do.

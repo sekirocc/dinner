@@ -1,21 +1,45 @@
 - model_class = Order
 .page-header
-  %h1=t '.title', :default => model_class.model_name.human.pluralize
-%table.table.table-striped
-  %thead
-    %tr
-      %th= model_class.human_attribute_name(:id)
-      %th= model_class.human_attribute_name(:user_id)
-      %th= model_class.human_attribute_name(:created_at)
-      %th=t '.actions', :default => t("helpers.actions")
-  %tbody
-    - @orders.each do |order|
-      %tr
-        %td= link_to order.id, order_path(order)
-        %td= order.user_id
-        %td=l order.created_at
-        %td
-          = link_to t('.edit', :default => t("helpers.links.edit")), edit_order_path(order), :class => 'btn btn-mini'
-          = link_to t('.destroy', :default => t("helpers.links.destroy")), order_path(order), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger'
+  %h3 4小时内所有订单
 
-= link_to t('.new', :default => t("helpers.links.new")), new_order_path, :class => 'btn btn-primary'
+%ul.nav.nav-tabs#myTab
+  %li.active
+    %a(href="#home") 最新点餐
+  %li
+    %a(href="#popular") 最受欢迎的菜
+.tab-content
+  .tab-pane.active#home
+    %table.table.table-striped
+      %thead
+        %tr
+          %th 用户名
+          %th(style="width: 206px;") 点菜
+          %th
+          %th
+      %tbody
+        - @orders.each do |order|
+          %tr(class="#{order.user == current_user ? 'my-order' : '' }")
+            %td= User.find(order.user_id).nickname
+            %td= order.order_dishes.collect {|od| if od.dish then od.dish.name + " X " + od.number.to_s end }.join(',')
+            %td=l order.created_at
+            %td
+              - if can? :edit, order
+                = link_to '编辑', edit_order_path(order), :class => 'btn btn-mini'
+                = link_to '删除', order_path(order), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger'
+  .tab-pane#popular
+    - dishes_number_by_name = @orders.inject({}) do |mem, order| 
+      - order.order_dishes.each do | order_dish |
+        - mem[order_dish.dish] ||= 0
+        - mem[order_dish.dish] = mem[order_dish.dish] + order_dish.number
+      - mem
+    - dishes_number_by_name = dishes_number_by_name.sort_by { |k,v| v }.reverse
+    %table.table.table-striped
+      %thead
+        %tr
+          %th 菜名
+          %th 份数
+      %tbody
+        - dishes_number_by_name.each do |k, v|
+          %tr
+            %th= if k then k.name end
+            %th= v

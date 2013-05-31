@@ -1,0 +1,4 @@
+app_title:
+  default: Dinner
+block_order:
+  default: true

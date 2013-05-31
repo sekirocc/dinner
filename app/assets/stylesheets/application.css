@@ -11,3 +11,9 @@
  *= require_self
  *= require_tree .
  */
+
+span.required-field {
+   float: right;
+   color: red;
+   font-weight: bold;
+ }

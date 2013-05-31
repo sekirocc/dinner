@@ -1,25 +1,26 @@
 - model_class = Dish
 .page-header
-  %h1=t '.title', :default => model_class.model_name.human.pluralize
+  %h3 所有菜单
 %table.table.table-striped
   %thead
     %tr
-      %th= model_class.human_attribute_name(:id)
       %th= model_class.human_attribute_name(:name)
       %th= model_class.human_attribute_name(:desc)
       %th= model_class.human_attribute_name(:price)
+      %th 是否启用
       %th= model_class.human_attribute_name(:created_at)
-      %th=t '.actions', :default => t("helpers.actions")
+      %th
   %tbody
     - @dishes.each do |dish|
       %tr
-        %td= link_to dish.id, dish_path(dish)
         %td= dish.name
         %td= dish.desc
         %td= dish.price
+        %td= ( dish.disable ? '否' : '是' )
         %td=l dish.created_at
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_dish_path(dish), :class => 'btn btn-mini'
           = link_to t('.destroy', :default => t("helpers.links.destroy")), dish_path(dish), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger'
+          = link_to ( dish.disable ? '启用' : '禁用' ), disable_dish_path(dish, :disable => !dish.disable ), :class => 'btn btn-mini btn-danger'
 
 = link_to t('.new', :default => t("helpers.links.new")), new_dish_path, :class => 'btn btn-primary'

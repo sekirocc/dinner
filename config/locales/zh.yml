@@ -25,7 +25,7 @@ zh:
 
   time:
     formats:
-      default: "%Y年%b%d日 %A %H:%M:%S"
+      default: "%A %H:%M:%S"
       time: "%H:%M"
       short: "%b%d日 %H:%M"
       long: "%Y年%b%d日 %H:%M"
@@ -76,10 +76,16 @@ zh:
   activerecord:
     models: 
       user: 用户
+      dish: 菜单
+      order: 订单
+      order_dish: 订单菜单
     attributes:
       user:
-        name: 名字
+        nickname: 昵称
         email: 邮件
+        password: 密码
+        password_confirmation: 确认密码
+        remember_me: 记住我
       asset:
         name: 型号
         identifier: 编号
@@ -89,7 +95,26 @@ zh:
         identifier: 物品编号
         is_returned: 是否归还
         created_at: 借出时间
-
+      dish:
+        name: 名称
+        desc: 描述
+        price: 价格
+        disable: 禁用
+        created_at: 创建于
+    errors:
+      models:
+        user:
+          attributes:
+            nickname:
+              blank: 昵称不能为空，写上大名吧
+              taken: 昵称被占用了，是你的名字吗？
+            email:
+              blank: 邮件不能为空
+              taken: 邮件已经被注册
+            password:
+              blank: 密码不能为空
+            password_confirmation:
+              blank: 密码不能为空
 
   label_sort_by: "按照 %{value} 排序"
   general_xls_font_family: 宋体

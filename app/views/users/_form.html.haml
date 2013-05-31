@@ -1,6 +1,4 @@
 = simple_form_for @user, :url => update_avatar_path, :html => { :multipart => true, :class => 'edit-user form-horizontal' } do |f|
   = f.input :nickname
-  = f.input :avatar, :label => '选择图片文件'
   .form-actions
-    = f.submit nil, :class => 'btn btn-primary'
-    = link_to t('.cancel', :default => t("helpers.links.cancel")), users_path, :class => 'btn'
+    = f.submit '更新', :class => 'btn-large btn-primary'
