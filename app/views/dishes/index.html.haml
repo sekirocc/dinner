@@ -1,6 +1,7 @@
 - model_class = Dish
 .page-header
   %h3 所有菜单
+%p.label.label-info 启用的菜单将可以被用户点餐，禁用的菜单用户不可以点。
 %table.table.table-striped
   %thead
     %tr
@@ -9,14 +10,18 @@
       %th= model_class.human_attribute_name(:price)
       %th 是否启用
       %th= model_class.human_attribute_name(:created_at)
-      %th
+      %th 动作
   %tbody
     - @dishes.each do |dish|
       %tr
         %td= dish.name
         %td= dish.desc
         %td= dish.price
-        %td= ( dish.disable ? '否' : '是' )
+        %td
+          - if dish.disable
+            %span.label.label 已禁用
+          - else 
+            %span.label.label-success 已启用
         %td=l dish.created_at
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_dish_path(dish), :class => 'btn btn-mini'

@@ -14,18 +14,16 @@ gem 'carrierwave'
 gem 'simple_form'
 gem 'cancan'
 gem 'rails_admin'
+gem 'rails-settings-cached', '0.2.4'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'libv8', '~> 3.11.8'
-  gem 'therubyracer'  
-  gem 'less-rails' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-  gem 'twitter-bootstrap-rails'
 
-  gem 'uglifier', '>= 1.0.3'
-end
+gem 'coffee-rails', '~> 3.2.1'
+gem 'libv8', '~> 3.11.8'
+gem 'therubyracer'  
+gem 'less-rails' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem 'twitter-bootstrap-rails', "2.1.9"
+
+gem 'uglifier', '>= 1.0.3'
 
 group :development do
   gem 'rdoc', '>= 2.4.2'

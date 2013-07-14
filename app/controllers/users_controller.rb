@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+
+  
   # GET /users
   # GET /users.json
   def index
@@ -61,7 +64,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { render :edit, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render :edit }
@@ -74,7 +77,7 @@ class UsersController < ApplicationController
     @user = current_user
     respond_to do |format|
       if @user.update_without_password(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { render :edit , notice: 'User was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -91,5 +94,10 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+
+  def toggle_block_ordering
+    return unless current_user.can_manage_dishes?
+    Setting.toggle_block_ordering!
   end
 end

@@ -1,0 +1,9 @@
+- if Setting.block_ordering
+  - btnText = '开放点餐'
+  - alertText = '现在已经禁止点餐。用户将不能点餐'
+- else
+  - btnText = '禁止点餐'
+  - alertText = '现在已经开放点餐。用户可以点餐'
+
+$('.toggle_block_ordering.btn').text(" #{ btnText } ")
+alert(" #{ alertText } ")

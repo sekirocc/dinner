@@ -1,7 +1,8 @@
-class Setting < ActiveRecord::Base
-  attr_accessible :name, :value
+class Setting < RailsSettings::CachedSettings
+	attr_accessible :var
 
-  @@available_settings = YAML::load(File.open("#{Rails.root}/config/settings.yml"))
+  def self.toggle_block_ordering!
+    Setting.block_ordering = !Setting.block_ordering
+  end
 
-  
 end

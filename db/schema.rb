@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130530082845) do
+ActiveRecord::Schema.define(:version => 20130714113037) do
 
   create_table "dishes", :force => true do |t|
     t.string   "name"
@@ -49,16 +49,27 @@ ActiveRecord::Schema.define(:version => 20130530082845) do
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
+  create_table "settings", :force => true do |t|
+    t.string   "var",                      :null => false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", :limit => 30
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], :name => "index_settings_on_thing_type_and_thing_id_and_var", :unique => true
+
   create_table "users", :force => true do |t|
     t.string   "nickname"
     t.string   "avatar"
     t.string   "role"
-    t.boolean  "blocked"
+    t.boolean  "blocked",                :default => true
     t.integer  "reward"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.string   "email",                  :default => "",   :null => false
+    t.string   "encrypted_password",     :default => "",   :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

@@ -1,5 +1,9 @@
 <h3>用户登陆</h3>
-
+<% if current_user && current_user.blocked %>
+  <p class="label label-important" style="font-size: 1.1em; line-height: 2em; width: 100%;">
+    您的账号正在被管理员审核，审核通过后将可点餐，请耐心等待
+  </p>
+<% end %>
 <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name) , :html => {:class => 'form-horizontal'} ) do |f| %>
   <div class="form-inputs">
     <%= f.input :nickname, :required => true, :autofocus => true %>

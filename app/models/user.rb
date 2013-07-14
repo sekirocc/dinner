@@ -17,12 +17,15 @@ class User < ActiveRecord::Base
 
   has_many :orders
 
+  ADMIN_USER = %w( 陈界 孙彬彬 张建)
+
   def admin?
-    nickname == '陈界'
+    ADMIN_USER.include? nickname
   end
 
   def can_manage_dishes?
-    nickname == '陈界'
+    ADMIN_USER.include? nickname
   end
+
   
 end

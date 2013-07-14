@@ -161,4 +161,19 @@ RailsAdmin.config do |config|
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
   # end
 
+
+  config.model 'User' do
+    list do
+      field :nickname
+      field :email
+      field :blocked
+    end
+    edit do
+      field :nickname
+      field :email
+      field :blocked
+    end
+    
+  end
+
 end

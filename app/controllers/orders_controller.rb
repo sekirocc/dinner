@@ -43,38 +43,55 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new
-    params[:dishes].each { |k, v|
-      v = v.to_i
-      next if v == 0
-      @order.order_dishes.build({ dish_id: k, number: v})
-    }
-    @order.user = current_user
+    unless Setting.block_ordering
+      @order = Order.new
+      params[:dishes].each { |k, v|
+        v = v.to_i
+        next if v == 0
+        @order.order_dishes.build({ dish_id: k, number: v})
+      }
+      @order.user = current_user
 
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to orders_url, notice: '成功提交.' }
-        format.json { render json: @order, status: :created, location: @order }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @order.save
+          format.html { redirect_to orders_url, notice: '成功提交.' }
+          format.json { render json: @order, status: :created, location: @order }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @order.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to orders_url, notice: '已超过点餐时间，点餐失败'
     end
   end
 
   # PUT /orders/1
   # PUT /orders/1.json
   def update
-    @order = Order.find(params[:id])
+    unless Setting.block_ordering
+      old_order = Order.find(params[:id])
+      old_order.destroy if old_order
 
-    respond_to do |format|
-      if @order.update_attributes(params[:order])
-        format.html { redirect_to orders_url, notice: '成功更新.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+      @order = Order.new
+      params[:dishes].each { |k, v|
+        v = v.to_i
+        next if v == 0
+        @order.order_dishes.build({ dish_id: k, number: v})
+      }
+      @order.user = current_user
+
+      respond_to do |format|
+        if @order.save
+          format.html { redirect_to orders_url, notice: '成功更新.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @order.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to orders_url, notice: '已超过点餐时间，修改失败'
     end
   end
 

@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :nickname
       t.string :avatar
       t.string :role
-      t.boolean :blocked
+      t.boolean :blocked, :default => true
       t.integer :reward
 
       t.timestamps

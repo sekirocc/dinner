@@ -14,10 +14,14 @@ WeAsk::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  devise_for :users
+  devise_for :users, :controllers => {:sessions => "sessions", :registrations => "registrations"}
 
   put 'users/update_avatar' => 'users#update_avatar', :as => :update_avatar
-  resources :users
+  resources :users do
+    collection do
+      post 'toggle_block_ordering', :as => :toggle_block_ordering
+    end
+  end
 
 
 

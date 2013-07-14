@@ -20,7 +20,7 @@
         - @orders.each do |order|
           %tr(class="#{order.user == current_user ? 'my-order' : '' }")
             %td= User.find(order.user_id).nickname
-            %td= order.order_dishes.collect {|od| if od.dish then od.dish.name + " X " + od.number.to_s end }.join(',')
+            %td= order.order_dishes.collect {|od| if od.dish then od.dish.name + ' ' + od.number.to_s + '份' end }.join(',')
             %td=l order.created_at
             %td
               - if can? :edit, order
@@ -43,3 +43,7 @@
           %tr
             %th= if k then k.name end
             %th= v
+
+= link_to ( Setting.block_ordering ? '开放点餐' : '禁止点餐' ), 
+  toggle_block_ordering_users_path, 
+  :class => 'btn btn-primary btn-large toggle_block_ordering', :method => :post, :remote => true if current_user.can_manage_dishes?

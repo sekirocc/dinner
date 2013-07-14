@@ -4,13 +4,19 @@
       %tr
         %th 菜名
         %th 价格(元)
+        %th 描述
         %th 份数
     %tbody
       - Dish.active.all.sort_by { |e| -e.price }.each do |dish|
         %tr
           %td= dish.name
           %td= dish.price
+          %td= dish.desc
           %td= number_field_tag "dishes[#{dish.id}]", ( @order.order_dishes.find_by_dish_id(dish.id) || { :number => 0 } )[:number]
 
   .form-actions
-    = f.button :submit, '提交订单', :class => 'btn-primary btn-large pull-left'
+    - if Setting.block_ordering
+      %p.label.label-important(style="font-size: 1.2em; line-height: 2em;")
+        = Setting.now_is_blocking_ordering_you_are_late
+    - else
+      = f.button :submit, '提交订单', :class => 'btn-primary btn-large pull-left'

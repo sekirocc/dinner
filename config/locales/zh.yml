@@ -83,6 +83,7 @@ zh:
       user:
         nickname: 昵称
         email: 邮件
+        blocked: 禁用
         password: 密码
         password_confirmation: 确认密码
         remember_me: 记住我

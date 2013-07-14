@@ -3,7 +3,7 @@ class DishesController < ApplicationController
   # GET /dishes
   # GET /dishes.json
   def index
-    @dishes = Dish.all
+    @dishes = Dish.order(:disable).all
 
     respond_to do |format|
       format.html # index.html.erb
