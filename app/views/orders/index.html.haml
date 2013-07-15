@@ -7,12 +7,15 @@
     %a(href="#home") 最新点餐
   %li
     %a(href="#popular") 最受欢迎的菜
+  %li
+    %a(href="#by_department") 部门金额
 .tab-content
   .tab-pane.active#home
     %table.table.table-striped
       %thead
         %tr
           %th 用户名
+          %th 部门
           %th(style="width: 206px;") 点菜
           %th
           %th
@@ -20,6 +23,7 @@
         - @orders.each do |order|
           %tr(class="#{order.user == current_user ? 'my-order' : '' }")
             %td= User.find(order.user_id).nickname
+            %td= User.find(order.user_id).department.try(:name)
             %td= order.order_dishes.collect {|od| if od.dish then od.dish.name + ' ' + od.number.to_s + '份' end }.join(',')
             %td=l order.created_at
             %td
@@ -42,6 +46,26 @@
         - dishes_number_by_name.each do |k, v|
           %tr
             %th= if k then k.name end
+            %th= v
+  .tab-pane#by_department
+    - money_by_department = @orders.inject({}) do |mem, order|
+      - department = order.user.department
+      - if department
+        - mem[department] ||= 0
+        - mem[department] += order.order_dishes.inject(0) do |m, od|
+          - m += od.dish.price * od.number
+          - m
+      - mem
+
+    %table.table.table-striped
+      %thead
+        %tr
+          %th 部门
+          %th 总金额(元)
+      %tbody
+        - money_by_department.each do |k, v|
+          %tr
+            %th= k.name
             %th= v
 
 = link_to ( Setting.block_ordering ? '开放点餐' : '禁止点餐' ), 

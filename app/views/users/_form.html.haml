@@ -1,4 +1,12 @@
 = simple_form_for @user, :url => update_avatar_path, :html => { :multipart => true, :class => 'edit-user form-horizontal' } do |f|
   = f.input :nickname
+  = f.association :department
   .form-actions
     = f.submit '更新', :class => 'btn-large btn-primary'
+
+= simple_form_for @user, :url => user_path(@user), :method => :put , :html => { :multipart => true, :class => 'edit-user form-horizontal' } do |f|
+  = f.input :current_password, :label => '当前密码'
+  = f.input :password, :label => '新密码'
+  = f.input :password_confirmation, :label => '新密码确认'
+  .form-actions
+    = f.submit '更新密码', :class => 'btn-large btn-primary'

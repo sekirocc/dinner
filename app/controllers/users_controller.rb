@@ -1,6 +1,5 @@
+#encoding: utf-8
 class UsersController < ApplicationController
-
-
   
   # GET /users
   # GET /users.json
@@ -48,7 +47,7 @@ class UsersController < ApplicationController
     
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: '用户信息更新成功.' }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -63,14 +62,15 @@ class UsersController < ApplicationController
     @user = current_user
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
-        format.html { render :edit, notice: 'User was successfully updated.' }
+      if @user.update_with_password(params[:user])
+        format.html { redirect_to new_user_session_path , notice: '密码更新成功， 请重新登陆' }
         format.json { head :no_content }
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   def update_avatar

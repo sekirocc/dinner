@@ -79,9 +79,11 @@ zh:
       dish: 菜单
       order: 订单
       order_dish: 订单菜单
+      department: 部门
     attributes:
       user:
         nickname: 昵称
+        department: 部门
         email: 邮件
         blocked: 禁用
         password: 密码
@@ -116,6 +118,8 @@ zh:
               blank: 密码不能为空
             password_confirmation:
               blank: 密码不能为空
+            current_password:
+              invalid: 当前密码输入错误
 
   label_sort_by: "按照 %{value} 排序"
   general_xls_font_family: 宋体

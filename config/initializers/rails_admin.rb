@@ -9,7 +9,7 @@ RailsAdmin.config do |config|
 
   # Set the admin name here (optional second array element will appear in red). For example:
   config.main_app_name = ['点餐系统']
-  config.included_models = ["User", "Dish"]
+  config.included_models = ["User", "Dish", "Order", "Department"]
   # or for a more dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 
@@ -166,14 +166,18 @@ RailsAdmin.config do |config|
     list do
       field :nickname
       field :email
+      field :department
       field :blocked
     end
     edit do
       field :nickname
       field :email
+      field :department
+      field :password
+      field :password_confirmation
       field :blocked
     end
-    
+
   end
 
 end
