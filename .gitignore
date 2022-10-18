@@ -30,6 +30,8 @@
 /vendor/rails
 *.rbc
 
+/vendor/bundle
+
 /.bundle
 /Gemfile.local
 

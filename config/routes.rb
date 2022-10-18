@@ -1,4 +1,4 @@
-WeAsk::Application.routes.draw do
+Rails.application.routes.draw do
   resources :order_dishes
 
 
@@ -83,5 +83,5 @@ WeAsk::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 
   root :to => "orders#index"
-  
+
 end

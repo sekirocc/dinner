@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  
-  skip_before_filter :auth_not_blocked!
+
+  skip_before_action :auth_not_blocked!
 
 end

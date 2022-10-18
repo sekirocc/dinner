@@ -1,6 +1,6 @@
 #encoding: utf-8
 class UsersController < ApplicationController
-  
+
   # GET /users
   # GET /users.json
   def index
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
-    
+
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: '用户信息更新成功.' }
@@ -100,4 +100,9 @@ class UsersController < ApplicationController
     return unless current_user.can_manage_dishes?
     Setting.toggle_block_ordering!
   end
+
+  ## TODO
+  ## Strong Parameters
+  ## https://edgeapi.rubyonrails.org/classes/ActionController/StrongParameters.html
+
 end
